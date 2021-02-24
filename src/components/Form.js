@@ -1,21 +1,29 @@
 import React, { useState } from "react";
 
 function Form() {
-  const [firstName, setFirstName] = useState("John");
-  const [lastName, setLastName] = useState("Henry");
+  const [person, setPerson] = useState({
+    firstName: "",
+    lastName: ""
+  });
+  
 
-  function handleFirstNameChange(event) {
-    setFirstName(event.target.value);
+  function handleNameChange(event) {
+    event.preventDefault()
+    const name = event.target.name
+    const value = event.target.value
+    setPerson({
+      ...person,
+      [name]: value
+    })
+    console.log(person)
   }
 
-  function handleLastNameChange(event) {
-    setLastName(event.target.value);
-  }
+
 
   return (
-    <form>
-      <input type="text" onChange={handleFirstNameChange} value={firstName} />
-      <input type="text" onChange={handleLastNameChange} value={lastName} />
+    <form onSubmit ={handleNameChange} >
+      <input type="text" onChange={handleNameChange} name = "firstName" value={person.firstName} placeholder ="name" />
+      <input type="text" onChange={handleNameChange} name = "lastName" value={person.lastName}  placeholder = "last name"/>
       <button type="submit">Submit</button>
     </form>
   );
